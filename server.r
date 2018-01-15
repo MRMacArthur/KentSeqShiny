@@ -5,6 +5,7 @@ library(DT)
 
 gene.diff <- read.csv("./Data/gene_diff.csv")
 gene.diff2 <- read.csv("./Data/gene_diff2.csv")
+gene.rep.mat.TC <- read.csv("./Data/gene_rep_met_2.csv")
 
 function(input, output, session) {
 
@@ -38,4 +39,14 @@ function(input, output, session) {
   
   }))
 
+  output$TCplot <- renderPlot({
+    
+    q <- ggplot(data = gene.rep.mat.TC, aes_string(x = "Time", y = input$TCseq, color = "Treatment")) +
+      geom_point() +
+      stat_smooth(method = 'lm', formula = y ~ poly(x, 3), size = 1, alpha = 0.1)
+    
+    print(q)
+    
+  })
+  
 }

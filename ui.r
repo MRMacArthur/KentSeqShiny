@@ -3,8 +3,8 @@ library(plotly)
 library(shiny)
 library(DT)
 
-navbarPage("Naive vs 6h Stimulation",
-           tabPanel("Volcano Plots",
+navbarPage("PKL Seq Data",
+           tabPanel("Naive v LPS Volcano Plots",
                     fluidRow(
                       column(2,
                         selectInput("compChoose", label = "Choose Sample Comparison",
@@ -16,7 +16,7 @@ navbarPage("Naive vs 6h Stimulation",
                         )
                       )
                     ),
-           tabPanel("Differential Tables",
+           tabPanel("Naive v LPS Differential Tables",
                     titlePanel("Differential Expression DataTables"),
                     fluidRow(
                       column(4,
@@ -37,5 +37,13 @@ navbarPage("Naive vs 6h Stimulation",
                     fluidRow(
                       DT::dataTableOutput("diffTable")
                     )
-                    ))
+                    ),
+           tabPanel("Time Course Plot",
+                    fluidRow(
+                      column(2,
+                             selectInput("TCseq", "Transcript", 
+                                         choices = colnames(read.csv("./Data/gene_rep_met_2.csv")))),
+                      column(10,
+                             plotOutput('TCplot'))
+                    )))
            
